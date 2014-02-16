@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @movies = Movie.find(:all, :order => (params[:sort_by]))
   end
 
   def new
@@ -38,4 +38,4 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
-end
+  end
