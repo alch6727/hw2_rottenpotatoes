@@ -8,23 +8,48 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
+    redirect = false
 
+    # If user has pressed a way to sort, use the input
     if params[:sort_by]
       @sort_by = params[:sort_by]
+      # Save this input into session
       session[:sort_by] = params[:sort_by]
-    else
+
+    # If the user has not placed anything, use the settings in the session
+    elsif session[:sort_by]
       @sort_by = session[:sort_by]
+      redirect = true
+    else
+      @sort_by = nil
     end
 
-   
     if params[:ratings]
-      @movies = Movie.where(:rating => params[:ratings].keys).find(:all, :order=>(params[:sort_by]))
-      @set_ratings = params[:ratings]
+      @ratings = params[:ratings]
+      session[:ratings] = params[:ratings]
+    elsif session[:ratings]
+      @ratings = session[:ratings]
+      redirect = true
     else
-      @movies = Movie.find(:all, :order => (params[:sort_by]))
-      @set_ratings = Hash.new
+      @ratings = nil
     end
-    @all_ratings = Movie.all_ratings
+    
+    # If there's a redirect, save the flash message and go to the correct page
+    if redirect
+      flash.keep
+      redirect_to movies_path sort_by:@sort_by, ratings:@ratings
+    end
+
+    if @ratings and @sort_by
+      @movies = Movie.where(rating:@ratings.keys).find(:all, :order=>(params[:sort_by]))
+    elsif @ratings
+      @movies = Movie.where(rating:@ratings.keys)
+    elsif @sort_by
+      @ratings = Hash.new
+      @movies = Movie.find(:all, order: params[:sort_by])
+    else
+      @movies = Movie.all
+    end
   end
 
   def new
