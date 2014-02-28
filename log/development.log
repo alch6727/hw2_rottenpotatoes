@@ -10115,3 +10115,72 @@ Served asset /jquery_ujs.js - 304 Not Modified (9ms)
 
 Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-02-27 23:57:18 -0400
 Served asset /jquery.js - 304 Not Modified (18ms)
+
+
+Started GET "/movies?ratings[PG]=1&ratings[PG-13]=1&sort_by=title" for 127.0.0.1 at 2014-02-28 00:05:57 -0400
+Processing by MoviesController#index as HTML
+  Parameters: {"ratings"=>{"PG"=>"1", "PG-13"=>"1"}, "sort_by"=>"title"}
+  [1m[36mMovie Load (0.7ms)[0m  [1mSELECT DISTINCT rating FROM "movies" [0m
+  [1m[35mMovie Load (4.9ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('PG', 'PG-13') ORDER BY title
+  Rendered movies/index.html.haml within layouts/application (65.0ms)
+Completed 200 OK in 104ms (Views: 91.9ms | ActiveRecord: 5.7ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-02-28 00:05:57 -0400
+Served asset /jquery.js - 304 Not Modified (44ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-02-28 00:05:57 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (8ms)
+
+
+Started GET "/movies?ratings[PG]=1&ratings[PG-13]=1&sort_by=title" for 127.0.0.1 at 2014-02-28 00:08:38 -0400
+Processing by MoviesController#index as HTML
+  Parameters: {"ratings"=>{"PG"=>"1", "PG-13"=>"1"}, "sort_by"=>"title"}
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT DISTINCT rating FROM "movies" [0m
+  [1m[35mMovie Load (0.9ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('PG', 'PG-13') ORDER BY title
+  Rendered movies/index.html.haml within layouts/application (73.3ms)
+Completed 500 Internal Server Error in 101ms
+
+ActionView::Template::Error (undefined method `[]' for nil:NilClass):
+    4:   Include: 
+    5:   - @all_ratings.each do |rating|
+    6:     = rating
+    7:     = check_box_tag "ratings[#{rating}]", 1, (true if @set_ratings[rating])
+    8:   = submit_tag 'Refresh', :id=>"ratings_submit"
+    9: 
+    10: %table#movies
+  app/views/movies/index.html.haml:7:in `block (2 levels) in _app_views_movies_index_html_haml__696667672__624875458'
+  app/views/movies/index.html.haml:5:in `each'
+  app/views/movies/index.html.haml:5:in `block in _app_views_movies_index_html_haml__696667672__624875458'
+  app/views/movies/index.html.haml:3:in `_app_views_movies_index_html_haml__696667672__624875458'
+
+
+  Rendered /home/saasbook/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.14/lib/action_dispatch/middleware/templates/rescues/_trace.erb (10.2ms)
+  Rendered /home/saasbook/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.14/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.3ms)
+  Rendered /home/saasbook/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.14/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (65.2ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2014-02-28 00:09:31 -0400
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (10.2ms)[0m  [1mSELECT DISTINCT rating FROM "movies" [0m
+Redirected to http://localhost:3000/movies?ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&sort_by=title
+  [1m[35mMovie Load (0.7ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('PG', 'PG-13')
+Completed 302 Found in 23ms (ActiveRecord: 10.8ms)
+
+
+Started GET "/movies?ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&sort_by=title" for 127.0.0.1 at 2014-02-28 00:09:31 -0400
+Processing by MoviesController#index as HTML
+  Parameters: {"ratings"=>{"PG"=>"1", "PG-13"=>"1"}, "sort_by"=>"title"}
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT DISTINCT rating FROM "movies" [0m
+  [1m[35mMovie Load (6.5ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('PG', 'PG-13') ORDER BY title
+  Rendered movies/index.html.haml within layouts/application (55.2ms)
+Completed 200 OK in 105ms (Views: 85.2ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-02-28 00:09:32 -0400
+Served asset /jquery.js - 304 Not Modified (16ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-02-28 00:09:32 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
