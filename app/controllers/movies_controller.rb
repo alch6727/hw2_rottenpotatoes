@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
       @ratings = session[:ratings]
       redirect = true
     else
-      @ratings = nil
+      @ratings = {"G"=>"1","PG"=>"1","PG-13"=>"1","R"=>"1"}
     end
     
     # If there's a redirect, save the flash message and go to the correct page
